@@ -11,7 +11,7 @@
    - Support ngrok, playit.gg, portmap.io dll
    - File `.vbs` langsung siap pakai
  
- **Python Payload Injector**
+ **Python Backdror Injector**
    - Payload `msfvenom` disisipkan ke file Python target
    - Payload dijalankan dengan threading (background)
    - Output file `_patched.py` tetap menjalankan script asli tanpa error
