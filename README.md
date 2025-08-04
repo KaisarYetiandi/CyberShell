@@ -13,6 +13,7 @@
 
  **Python Backdror Injector**
    - Backdor`msfvenom` disisipkan ke file Python target
+   - Support ngrok, playit.gg, portnam.io dll
    - Payload dijalankan dengan threading (background)
    - Output file `_patched.py` tetap menjalankan script asli tanpa error
 
