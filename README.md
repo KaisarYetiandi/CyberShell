@@ -10,9 +10,7 @@
    - Dukungan 2 metode Obfuscation: `CHR()` dan `Base64`
    - Support ngrok, playit.gg, portmap.io dll
    - File `.vbs` langsung siap pakai
-   - `.vbs` Untuk Netcat
-   - `_patched.py` Untuk Metasploit
- 
+
  **Python Backdror Injector**
    - Backdor`msfvenom` disisipkan ke file Python target
    - Payload dijalankan dengan threading (background)
