@@ -7,7 +7,7 @@
 ## Fitur Utama
 
  **VBS Reverse Shell Builder**
-   - Dukungan 2 metode Obfuscation: `CHR()` dan `Base64`
+   - Mendukung 2 metode Obfuscator: `CHR()` dan `Base64`
    - Support ip lokal, ngrok, playit.gg, portmap.io dll
    - File `.vbs` langsung siap pakai
 
