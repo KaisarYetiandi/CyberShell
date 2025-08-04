@@ -6,12 +6,12 @@ CyberShell adalah tool dengan antarmuka GUI dan di Tool tersebut  ada 2 fitur, y
 
 ## Fitur Utama
 
-✅> VBS Reverse Shell Builder
+> VBS Reverse Shell Builder
    - Dukungan 2 metode Obfuscation: `CHR()` dan `Base64`
    - Support ngrok, playit.gg, portmap.io dll
    - File `.vbs` langsung siap pakai
 
-✅> Python Payload Injector
+> Python Payload Injector
    - Payload `msfvenom` disisipkan ke file Python target
    - Payload dijalankan dengan threading (background)
    - Output file `_patched.py` tetap menjalankan script asli tanpa error
