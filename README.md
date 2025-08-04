@@ -1,6 +1,6 @@
 # CyberShell 
 
-CyberShell adalah tool dengan antarmuka GUI dan di Tool tersebut  ada 2 fitur, yang pertama fitur untuk membuat payload reverse shell yang menghasilkan file VBS dan yang ke 2 fitur menyuntikkan backdor ke script Python secara otomatis. Dan Tool Dirancang dengan tampilan Dark Neon dan berfokus pada metode stealth & FUD (Fully Undetectable).
+CyberShell adalah tool dengan antarmuka GUI dan di Tool tersebut  ada 2 fitur, yang pertama fitur untuk membuat payload reverse shell yang menghasilkan file VBS dan yang ke dua fitur menyuntikkan backdor ke script Python secara otomatis. Dan Tool Dirancang dengan tampilan Dark Neon dan berfokus pada metode stealth & FUD (Fully Undetectable).
 
 ---
 
