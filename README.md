@@ -8,12 +8,12 @@
 
  **VBS Reverse Shell Builder**
    - Dukungan 2 metode Obfuscation: `CHR()` dan `Base64`
-   - Support ngrok, playit.gg, portmap.io dll
+   - Support ip lokal, ngrok, playit.gg, portmap.io dll
    - File `.vbs` langsung siap pakai
 
  **Python Backdror Injector**
    - Backdor`msfvenom` bisa disisipkan ke file Script Python
-   - Support ngrok, playit.gg, portnam.io dll
+   - Support ip lokal, ngrok, playit.gg, portnam.io dll
    - Output file `_patched.py` tetap menjalankan script asli tanpa error
 
 ---
