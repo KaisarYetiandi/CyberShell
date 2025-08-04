@@ -33,7 +33,7 @@ python3 CyberShell.py
 ---
 
 ## Disclaimer 
-Tool ini dibuat hanya untuk edukasi dan pembelajaran saja, Gunakan dengan bijak
+Tool ini dibuat hanya untuk edukasi dan pembelajaran saja, Author tidak akan bertanggung jawab bila terjadi sesuatu yang tidak diinginkan, Gunakanlah dengan bijak.
 
 ---
 
