@@ -22,7 +22,7 @@
 
 ```
 git clone https://github.com/KaisarYetiandi/CyberShell.git
-cd cybershell-builder
+cd cybershell
 ```
 
 ```
