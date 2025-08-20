@@ -144,7 +144,7 @@ class LogoHeader(QLabel):
 
     def load_image_from_url(self):
         try:
-            url = "https://raw.githubusercontent.com/KaisarYetiandi/CyberShell/refs/heads/main/assets/image.png"
+            url = "https://raw.githubusercontent.com/KaisarYetiandi/CyberShell/main/.github/workflows/image.png"
             response = requests.get(url, timeout=5)
             
             if response.status_code == 200:
