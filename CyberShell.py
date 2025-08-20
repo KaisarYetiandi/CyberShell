@@ -5,6 +5,7 @@ import subprocess
 import re
 import base64
 import threading
+import requests
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, 
                              QLineEdit, QPushButton, QTextEdit, QTabWidget, QFileDialog, QMessageBox)
 from PyQt6.QtCore import Qt, QSize, QUrl
@@ -96,7 +97,7 @@ class CyberpunkLabel(QLabel):
 class LogoHeader(QLabel):
     def __init__(self):
         super().__init__()
-        self.setFixedHeight(150)
+        self.setFixedHeight(180)
         self.setStyleSheet("""
             QLabel {
                 background-color: #0a0a12;
@@ -105,26 +106,32 @@ class LogoHeader(QLabel):
         """)
         
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(0, 10, 0, 10)
-        layout.setSpacing(5)
+        layout.setContentsMargins(0, 15, 0, 10)
+        layout.setSpacing(8)
         
         self.image_label = QLabel()
-        self.image_label.setFixedSize(120, 120)
+        self.image_label.setFixedSize(150, 150)
         self.image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.image_label.setStyleSheet("""
             QLabel {
-                background-color: #7b2fff;
-                border-radius: 10px;
-                border: 2px solid #9d6aff;
+                background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,
+                    stop: 0 #7b2fff, stop: 0.5 #9d6aff, stop: 1 #5e00ff);
+                color: #0a0a12;
+                border-radius: 75px;
+                border: 3px solid #b892ff;
+                font-family: 'Consolas';
+                font-size: 16px;
+                font-weight: bold;
             }
         """)
+        self.image_label.setText("🐍\nCyber\nShell")
         
         github_label = QLabel("github.com/KaisarYetiandi")
         github_label.setStyleSheet("""
             QLabel {
                 color: #9d6aff;
                 font-family: 'Consolas';
-                font-size: 11px;
+                font-size: 12px;
                 background-color: transparent;
             }
         """)
@@ -133,28 +140,31 @@ class LogoHeader(QLabel):
         layout.addWidget(self.image_label, alignment=Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(github_label, alignment=Qt.AlignmentFlag.AlignCenter)
         
-        self.network_manager = QNetworkAccessManager()
-        self.network_manager.finished.connect(self.on_image_downloaded)
-        request = QNetworkRequest(QUrl("https://raw.githubusercontent.com/KaisarYetiandi/CyberShell/refs/heads/main/.github/workflows/image.png"))
-        self.network_manager.get(request)
+        self.load_image_from_url()
 
-    def on_image_downloaded(self, reply):
-        if reply.error():
-            return
+    def load_image_from_url(self):
+        try:
+            url = "https://raw.githubusercontent.com/KaisarYetiandi/CyberShell/main/.github/workflows/image.png"
+            response = requests.get(url, timeout=5)
             
-        data = reply.readAll()
-        pixmap = QPixmap()
-        pixmap.loadFromData(data)
-        scaled_pixmap = pixmap.scaled(120, 120, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
-        self.image_label.setPixmap(scaled_pixmap)
-        self.image_label.setStyleSheet("background-color: transparent; border: none;")
+            if response.status_code == 200:
+                pixmap = QPixmap()
+                pixmap.loadFromData(response.content)
+                
+                if not pixmap.isNull():
+                    scaled_pixmap = pixmap.scaled(500, 500, Qt.AspectRatioMode.KeepAspectRatio, 
+                                                Qt.TransformationMode.SmoothTransformation)
+                    self.image_label.setPixmap(scaled_pixmap)
+                    self.image_label.setStyleSheet("background-color: transparent; border: none;")
+        except:
+            pass
 
 class ReverseShellBuilder(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("CyberShell Builder - EmperorYetiandi")
         self.setWindowIcon(QIcon.fromTheme("terminal"))
-        self.setFixedSize(900, 750)
+        self.setFixedSize(900, 800)
         self.setup_ui()
         self.setup_styles()
         self.create_menu()
@@ -236,7 +246,7 @@ class ReverseShellBuilder(QMainWindow):
 
         content_widget = QWidget()
         content_layout = QVBoxLayout(content_widget)
-        content_layout.setContentsMargins(20, 10, 20, 20)
+        content_layout.setContentsMargins(20, 15, 20, 20)
         content_layout.setSpacing(15)
 
         self.tab_widget = QTabWidget()
@@ -340,7 +350,7 @@ class ReverseShellBuilder(QMainWindow):
     def validate_ip_or_domain(self, value):
         if not value:
             return False
-        ip_pattern = r"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
+        ip_pattern = r"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
         domain_pattern = r"^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+[A-Za-z]{2,6}$"
         ngrok_pattern = r"^[a-zA-Z0-9\-]+\.tcp\.([a-zA-Z0-9\-]+\.)+[A-Za-z]{2,}$"
         return (re.match(ip_pattern, value) or 
@@ -529,76 +539,4 @@ class ReverseShellBuilder(QMainWindow):
                 background-color: #7b2fff;
                 color: #0a0a12;
                 border: none;
-                padding: 5px 10px;
-                font-family: 'Consolas';
-                font-weight: bold;
-            }
-        """)
-        msg.exec()
-        
-    def show_about(self):
-        about_text = """
-        <h2>🔥 CyberShell Builder 🔥</h2>
-        <p>Version: 2.0 (PyQt6)</p>
-        <p>Author: KaisarYetiandi</p>
-        <p>Support: github.com/KaisarYetiandi</p>
-        <p>This tool helps create reverse shell payloads and inject Metasploit payloads into Python scripts.</p>
-        <p>Features:</p>
-        <ul>
-            <li>📝 VBS reverse shell generator (CHR and Base64 methods)</li>
-            <li>🐍 Python script injector for Metasploit payloads</li>
-            <li>🎨 Modern dark theme UI with cyberpunk aesthetics</li>
-        </ul>
-        <p><b>⚠️ Use responsibly and only on systems you own or have permission to test.</b></p>
-        """
-        
-        msg = QMessageBox()
-        msg.setIcon(QMessageBox.Icon.Information)
-        msg.setWindowTitle("ℹ️ About CyberShell Builder")
-        msg.setTextFormat(Qt.TextFormat.RichText)
-        msg.setText(about_text)
-        msg.setStyleSheet("""
-            QMessageBox {
-                background-color: #0a0a12;
-                color: #9d6aff;
-                font-family: 'Consolas';
-            }
-            QLabel {
-                color: #9d6aff;
-            }
-            QPushButton {
-                background-color: #7b2fff;
-                color: #0a0a12;
-                border: none;
-                padding: 5px 10px;
-                font-family: 'Consolas';
-                font-weight: bold;
-            }
-        """)
-        msg.exec()
-
-if __name__ == "__main__":
-    app = QApplication([])
-    app.setStyle("Fusion")
-    
-    dark_palette = QPalette()
-    dark_palette.setColor(QPalette.ColorRole.Window, QColor(10, 10, 18))
-    dark_palette.setColor(QPalette.ColorRole.WindowText, QColor(123, 47, 255))
-    dark_palette.setColor(QPalette.ColorRole.Base, QColor(10, 10, 18))
-    dark_palette.setColor(QPalette.ColorRole.AlternateBase, QColor(20, 20, 30))
-    dark_palette.setColor(QPalette.ColorRole.ToolTipBase, QColor(157, 106, 255))
-    dark_palette.setColor(QPalette.ColorRole.ToolTipText, QColor(10, 10, 18))
-    dark_palette.setColor(QPalette.ColorRole.Text, QColor(157, 106, 255))
-    dark_palette.setColor(QPalette.ColorRole.Button, QColor(10, 10, 18))
-    dark_palette.setColor(QPalette.ColorRole.ButtonText, QColor(123, 47, 255))
-    dark_palette.setColor(QPalette.ColorRole.BrightText, QColor(255, 106, 255))
-    dark_palette.setColor(QPalette.ColorRole.Highlight, QColor(123, 47, 255))
-    dark_palette.setColor(QPalette.ColorRole.HighlightedText, QColor(10, 10, 18))
-    app.setPalette(dark_palette)
-    
-    font = QFont("Consolas", 10)
-    app.setFont(font)
-    
-    window = ReverseShellBuilder()
-    window.show()
-    app.exec()
+      
