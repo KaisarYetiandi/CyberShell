@@ -135,7 +135,7 @@ class LogoHeader(QLabel):
         
         self.network_manager = QNetworkAccessManager()
         self.network_manager.finished.connect(self.on_image_downloaded)
-        request = QNetworkRequest(QUrl("https://raw.githubusercontent.com/KaisarYetiandi/Hongmeng/refs/heads/main/.github/workflows/image.png"))
+        request = QNetworkRequest(QUrl("https://raw.githubusercontent.com/KaisarYetiandi/CyberShell/refs/heads/main/.github/workflows/image.png"))
         self.network_manager.get(request)
 
     def on_image_downloaded(self, reply):
